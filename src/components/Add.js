@@ -27,9 +27,9 @@ const Add = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:3000/products/${id}`)
+      axios.get(`http://localhost:8000/api/products/${id}`)
         .then(res => {
-          const data = res.data;
+          const data = res.data.product;
           setFormData({
             id: data.id,
             name: data.name,
@@ -57,7 +57,7 @@ const Add = () => {
     }
 
     if (type === 'file') {
-      newValue = imageRef.current.value.replace(/C:\\fakepath\\/i, "/images/");
+      newValue = event.target.files[0];
     }
 
     setFormData(prevState => ({
@@ -69,32 +69,62 @@ const Add = () => {
   const onSave = (e) => {
     e.preventDefault();
     const {
-      name, price, image, name_category, color, material,
+      name, price, image, color, name_category, material,
       expiry_date, origin, description, tinhtranghang
     } = formData;
 
-    if (formData.id) {
-      axios.put(`http://localhost:3000/products/${formData.id}`, {
-        name, price, image, color, name_category, material,
-        expiry_date, origin, description, tinhtranghang
-      }).then(() => {
-        toast.success("Cập nhật sản phẩm thành công");
-        history.goBack();
-      });
-    } else {
-      if (!name || !price || !image || !material || !expiry_date) {
-        toast.warn("Vui lòng nhập đủ nội dung");
-        return;
-      }
-      axios.post('http://localhost:3000/products', {
-        name, price, image, color, name_category, material,
-        expiry_date, origin, description, tinhtranghang
-      }).then(() => {
-        toast.success("Thêm sản phẩm thành công");
-        history.goBack();
-      });
-    }
+  if (formData.id) {
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('price', formData.price);
+    data.append('color', formData.color);
+    data.append('name_category', formData.name_category);
+    data.append('material', formData.material);
+    data.append('expiry_date', formData.expiry_date);
+    data.append('origin', formData.origin);
+    data.append('description', formData.description);
+    data.append('tinhtranghang', formData.tinhtranghang === true ? "1" : "0");
+
+    data.append('_method', 'PUT');
+
+    axios.post(`http://localhost:8000/api/products/${formData.id}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then(() => {
+      toast.success("Cập nhật sản phẩm thành công");
+      history.goBack();
+    }).catch((err) => {
+      console.error(err.response.data);
+      toast.error("Có lỗi xảy ra khi cập nhật sản phẩm");
+    });
+  } else {
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('price', formData.price);
+      data.append('image', image); 
+      data.append('color', formData.color);
+      data.append('name_category', formData.name_category);
+      data.append('material', formData.material);
+      data.append('expiry_date', formData.expiry_date);
+      data.append('origin', formData.origin);
+      data.append('description', formData.description);
+      data.append('tinhtranghang', formData.tinhtranghang === true ? "1" : "0");
+  
+    axios.post('http://localhost:8000/api/products', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then(() => {
+      toast.success("Thêm sản phẩm thành công");
+      history.goBack();
+    }).catch(err => {
+      console.error(err.response.data);
+      toast.error("Có lỗi xảy ra khi thêm sản phẩm");
+    });
   };
+}
+
 
   const onClear = () => {
     setFormData({

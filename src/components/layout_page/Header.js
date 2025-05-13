@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import ArrowCycle from '../layout_admin/test';
 class Header extends Component {
 
  render() {
@@ -13,10 +14,10 @@ class Header extends Component {
                 <li><a ><i className="fa fa-phone" /> 0336908928</a></li>
               </ul>
             </div>
-            
               <div className="pull-right auto-width-right">
                 <ul className="top-details menu-beta l-inline">
-                  <li><NavLink className="text-decoration" to ="/login">Admin Đăng nhập</NavLink></li>
+                  <li><NavLink className="text-decoration" to ="/register">Đăng Ký</NavLink></li>
+                  <li><NavLink className="text-decoration" to ="/login">Đăng nhập</NavLink></li>
                 </ul>
               </div>
             

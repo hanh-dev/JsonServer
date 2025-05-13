@@ -38,7 +38,7 @@ function Add() {
 
     axios
       .put(`http://localhost:3000/contacts/${id}`, {
-        status: status === 'true' || status === true, // convert string to boolean
+        status: status === 'true' || status === true,
       })
       .then(() => {
         toast.success("Cập nhật trạng thái thành công");

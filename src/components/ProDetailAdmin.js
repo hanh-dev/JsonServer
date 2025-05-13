@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const ProDetailAdmin = () => {
   const [product, setProduct] = useState({});
-  const { id } = useParams(); // Using useParams to get the product id from URL
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {

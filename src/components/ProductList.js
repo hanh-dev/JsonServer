@@ -13,12 +13,12 @@ const ProductList = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://localhost:3000/products',
+      url: 'http://localhost:8000/api/products',
       data: null,
     })
       .then((res) => {
         console.log(res);
-        setProducts(res.data);
+        setProducts(res.data.products);
       })
       .catch((err) => {
         console.log(err);
@@ -28,11 +28,12 @@ const ProductList = () => {
   const onDelete = (id) => {
     axios({
       method: 'DELETE',
-      url: `http://localhost:3000/products/${id}`,
+      url: `http://localhost:8000/api/products/${id}`,
       data: null,
     }).then((res) => {
       if (res.status === 200) {
         const updatedProducts = products.filter((product) => product.id !== id);
+        console.log(res.data.products);
         setProducts(updatedProducts);
         toast.success('Xóa sản phẩm thành công');
       }

@@ -181,6 +181,19 @@
       "description": "bánh ngon ",
       "tinhtranghang": true,
       "id": "1zPLb6X"
+    },
+    {
+      "id": "88d5",
+      "name": "Ho Van Hanh",
+      "price": "7",
+      "image": "/images/Ho Van Hanh - ID.pdf",
+      "color": "đỏ",
+      "name_category": "",
+      "material": "egg",
+      "expiry_date": "2025-05-29",
+      "origin": "Quảng Trị",
+      "description": "It looks tasty",
+      "tinhtranghang": true
     }
   ],
   "categories": [
@@ -243,8 +256,13 @@
   ],
   "user": [
     {
-      "username": "sản phẩm mới",
-      "password": "sản phẩm mới"
+      "username": "admin",
+      "password": "admin123"
+    },
+    {
+      "id": "93bd",
+      "username": "Ho Hanh",
+      "password": "hanhkx12#"
     }
   ],
   "orders": [

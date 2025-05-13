@@ -20,16 +20,31 @@ const Login = () => {
     }
   };
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin') {
-      setLoggedIn(true);
-      localStorage.setItem('username', username);
-    } else {
-      toast.error("Sai tên đăng nhập hoặc mật khẩu !");
+  
+    try {
+      const response = await fetch(`http://localhost:3000/user?username=${username}`);
+      const data = await response.json();
+  
+      if (data.length === 0) {
+        toast.error("Tài khoản không tồn tại!");
+        return;
+      }
+  
+      const user = data[0];
+      if (user.password === password) {
+        setLoggedIn(true);
+        localStorage.setItem('username', user.username);
+      } else {
+        toast.error("Sai mật khẩu!");
+      }
+    } catch (error) {
+      toast.error("Lỗi kết nối server!");
+      console.error("Login error:", error);
     }
   };
-
+  
   if (loggedIn) {
     toast.success("Đăng nhập thành công");
     return <Redirect to="/product-list" />;

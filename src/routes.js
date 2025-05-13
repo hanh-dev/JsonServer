@@ -14,6 +14,7 @@ import SanPhamKhuyenMai from './components/SanPhamKhuyenMai.js';
 import ProDetailAdmin from './components/ProDetailAdmin.js';
 import NotFound from './components/NotFound.js';
 import ContactDetail from './components/ContactDetail.js';
+import Register from './components/Register.js';
 
 const routes = [
 	{
@@ -25,6 +26,11 @@ const routes = [
 		path : '/login',
 		exact : true,
 		main : ({history})=> <Login history={history} />
+	},
+	{
+		path: '/register',
+		exact: true,
+		main: ({ history }) => <Register history={history} />
 	},
 	{
 		path : '/product-list',
